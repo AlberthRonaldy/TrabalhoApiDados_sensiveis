@@ -1,0 +1,17 @@
+<h1 align="center">Notas</h1>
+<ul class="list-group list-group-flush" id="notes">
+  {{#each user.notes}}
+    <li class="list-group-item">{{this.data}}
+      <button type="button" class="close" onClick="deleteNote({{this.id}})">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </li>
+  {{/each}}
+</ul>
+<form method="POST">
+  <textarea name="note" id="note" class="form-control"></textarea>
+  <br />
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Adicionar Nota</button>
+  </div>
+</form>
