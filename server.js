@@ -14,6 +14,8 @@ app.use(express.json());
 // Rotas
 const userRoute = require("./routes/UserRoute.js");
 
+app.use(express.static("public"));
+
 // Configurando meu template engine
 app.engine("handlebars", exphbs.engine());
 app.set("view engine", "handlebars");
