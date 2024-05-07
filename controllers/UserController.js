@@ -20,6 +20,10 @@ module.exports = class UserController {
     res.render("signup");
   }
 
+  static loadData(req, res) {
+    res.render("dados");
+  }
+
   static async createUser(req, res) {
     let {
       username,

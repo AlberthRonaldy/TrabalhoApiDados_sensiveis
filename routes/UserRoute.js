@@ -5,6 +5,7 @@ const UserController = require("../controllers/UserController.js");
 // Gets
 router.get("/", UserController.loadHome);
 router.get("/signup", UserController.loadSignup);
+router.get("/dados", UserController.loadData);
 
 // Posts
 router.post("/signup", UserController.createUser);

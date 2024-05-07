@@ -11,6 +11,9 @@ app.use(
 );
 
 app.use(express.json());
+
+app.use(express.static("public"));
+
 // Rotas
 const userRoute = require("./routes/UserRoute.js");
 
