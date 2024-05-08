@@ -8,13 +8,9 @@ function enviarFormulario() {
   var dataNascimento = document.getElementById("data_nascimento");
   var cidade_UF_nascimento = document.getElementById("cidade_UF_nascimento");
   var filiacao = document.getElementById("filiacao");
+  var telefone = document.getElementById("telefone");
   var password = document.getElementById("password");
   var confirmPassword = document.getElementById("confirmPassword");
-
-  if (!username || !cpf || !email) {
-    alert("Por favor, preencha todos os campos!");
-    return;
-  }
 
   var data = {
     username: username.value,
@@ -26,14 +22,14 @@ function enviarFormulario() {
     data_nascimento: dataNascimento.value,
     cidade_UF_nascimento: cidade_UF_nascimento.value,
     filiacao: filiacao.value,
+    telefone: telefone.value,
     password: password.value,
     confirmPassword: confirmPassword.value,
   };
 
-  for (const key in data) {
-    if (Object.hasOwnProperty.call(data, key)) {
-      data[key] = encryptData(data[key]);
-    }
+  if (username.value == "" || cpf.value == "" || email.value == "") {
+    alert("Por favor, preencha todos os campos!");
+    return;
   }
 
   console.log(data);
@@ -54,32 +50,4 @@ function enviarFormulario() {
     .catch((error) => {
       alert(error.message);
     });
-}
-
-async function fetchPublicKey() {
-  try {
-    const response = await fetch("http://localhost:3000/public-key");
-    if (!response.ok) {
-      throw new Error("Erro ao buscar chave pública.");
-    }
-    const publicKey = await response.text();
-    return publicKey;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-}
-
-async function encryptData(data) {
-  try {
-    await generateKeys();
-    const publicKey = await fetchPublicKey();
-    if (!publicKey) return;
-
-    const encryptedData = await encrypt(data, publicKey);
-    console.log("Dados criptografados:", encryptedData);
-    // Enviar os dados criptografados para o back-end...
-  } catch (error) {
-    console.error(error);
-  }
 }
