@@ -1,6 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+    /* background-color: #f8f9fa; */
+    background-color: rgba(0, 0, 255, 0.1); /* Azul claro */
     margin: 0;
     padding: 0;
     display: flex;

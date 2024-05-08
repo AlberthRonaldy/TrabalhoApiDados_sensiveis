@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+    background-color: rgba(0, 0, 255, 0.1); /* Azul claro */
     margin: 0;
     padding: 0;
     display: flex;
@@ -51,6 +51,30 @@ input[type="password"]:focus {
     border-color: #007bff;
 }
 
+.info {
+    font-size: 16px;
+    margin-top: 20px;
+    line-height: 16px;
+    color: #ff382b;
+    width: 55%;
+    padding: 7px;
+    background-color: #ecdcdc61;
+    border-radius: 8px;
+    box-shadow: 0px 0px 20px rgba(227, 224, 224, 0.1);
+}
+
+#botao {
+    background-color: #00ec85;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+    padding: 12px 44px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 25px;
+    width: 250px;
+}
 button {
     padding: 12px 44px;
     border: none;

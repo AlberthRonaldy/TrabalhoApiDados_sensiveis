@@ -20,6 +20,10 @@ module.exports = class UserController {
     res.render("signup");
   }
 
+  static loadLogin(req, res) {
+    res.render("login");
+  }
+
   static loadData(req, res) {
     res.render("dados");
   }

@@ -54,3 +54,56 @@ function enviarFormulario() {
 function encode(value){
     
 }   
+
+//Função para verificar a senha
+function verifyPass() {
+  var senha = document.getElementsByName('password')[0].value;
+  var feed = document.getElementsByClassName('feed');
+  
+  var maiuscula = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var numeros = "0123456789";
+  var especiais = "@$%&!";
+
+  var m = [];
+  var n = [];
+  var e = [];
+
+  //Define a cor
+  function estilo(f,s) {
+    var es = ["#2fdc2f", "#ff383b"];
+    feed[f].style.color = es[s];
+  }
+
+  for(i = 0; i < senha.length; i++) {
+    //Para letras maiusculas
+    m.push(maiuscula.indexOf(senha.charAt(i)));
+    var maxM = Math.max.apply(null, m);
+    if (maxM >= 0){
+      estilo(1,0);
+    }else{
+      estilo(1,1);
+    }
+    //Para números
+    n.push(numeros.indexOf(senha.charAt(i)));
+    var maxN = Math.max.apply(null, n);
+    if (maxN >= 0){
+      estilo(2,0);
+    }else{
+      estilo(2,1);
+    }
+    //Para caracteres especiais
+    e.push(especiais.indexOf(senha.charAt(i)));
+    var maxE = Math.max.apply(null, e);
+    if (maxE >= 0){
+      estilo(3,0);
+    }else{
+      estilo(3,1);
+    }
+
+    if(senha.length >= 8) {
+      estilo(0,0);
+    }else{
+      estilo(0,1);
+    }
+  }
+}

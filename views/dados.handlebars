@@ -1,25 +1,46 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <link rel="stylesheet" href="dados.css">
+    <title>Dados Cliente</title>
+    <link rel="stylesheet" href="/css/dados.css" />
 </head>
 <body>
-   <div class="container_dados">
-    <h1>Mostra Dados</h1>
-    <form action="/dados" method="POST">
-      <div class="input-group">
-        <label for="username">CPF:</label>
-        <input type="text" id="username" name="username" required />
-      </div>
-      <div class="input-group">
-        <label for="email">Senha:</label>
-        <input type="email" id="email" name="email" required />
-      </div>
-    </form>
-    <button type="submit" class="btn btn-primary">Login</button>
-  </form>
+<main class="container_signup">
+    <section>
+        <h1>Dados do Cliente</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th rowspan="1">Nome</th>
+                    <th rowspan="1">Email</th>
+                    <th colspan="1">CPF</th>
+                    <th rowspan="1">RG</th>
+                    <th rowspan="1">Telefone</th>
+                    <th rowspan="1">CEP</th>
+                    <th rowspan="1">Gênero</th>
+                    <th rowspan="1">Data de nascimento</th>
+                    <th rowspan="1">Cidade/UF</th>
+                    <th rowspan="1">Filiação</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Jorelzin</td>
+                    <td>jorelzin@gmail.com</td>
+                    <td>12345678910</td>
+                    <td>12345678</td>
+                    <td>(11) 9999-9999</td>
+                    <td>88920422</td>
+                    <td>Masculino</td>
+                    <td>10/03/1990</td>
+                    <td>Curitiba</td>
+                    <td>Partido Liberadores</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</main>   
 </body>
 </html>
