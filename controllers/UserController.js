@@ -8,9 +8,6 @@ const {
   checkIfUserExists,
 } = require("../repositories/UserRepositorie.js");
 
-// Gerar um par de chaves RSA
-const generateKeyPair = util.promisify(crypto.generateKeyPair);
-
 module.exports = class UserController {
   static loadHome(req, res) {
     res.render("home");
@@ -43,6 +40,33 @@ module.exports = class UserController {
       cidade_UF_nascimento,
       filiacao,
     } = req.body;
+
+    // Criar um objeto para armazenar os dados
+    const data = {
+      username,
+      email,
+      password,
+      confirmPassword,
+      cpf,
+      rg,
+      telefone,
+      cep,
+      genero,
+      data_nascimento,
+      cidade_UF_nascimento,
+      filiacao,
+    };
+
+    // Decodificar o base 64 do front
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        console.log("1", data[key]);
+        data[key] = helper.encryptAssData(key, data[key]);
+        console.log("2", data[key]);
+      }
+    }
+
+    console.log(data);
 
     // Codificar e Decodificar restrito
 
