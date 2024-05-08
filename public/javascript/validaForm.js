@@ -8,13 +8,9 @@ function enviarFormulario() {
   var dataNascimento = document.getElementById("data_nascimento");
   var cidade_UF_nascimento = document.getElementById("cidade_UF_nascimento");
   var filiacao = document.getElementById("filiacao");
+  var telefone = document.getElementById("telefone");
   var password = document.getElementById("password");
   var confirmPassword = document.getElementById("confirmPassword");
-
-  if (!username || !cpf || !email) {
-    alert("Por favor, preencha todos os campos!");
-    return;
-  }
 
   var data = {
     username: username.value,
@@ -26,9 +22,15 @@ function enviarFormulario() {
     data_nascimento: dataNascimento.value,
     cidade_UF_nascimento: cidade_UF_nascimento.value,
     filiacao: filiacao.value,
+    telefone: telefone.value,
     password: password.value,
     confirmPassword: confirmPassword.value,
   };
+
+  if (username.value == "" || cpf.value == "" || email.value == "") {
+    alert("Por favor, preencha todos os campos!");
+    return;
+  }
 
   console.log(data);
 
