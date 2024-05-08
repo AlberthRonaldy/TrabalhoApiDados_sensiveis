@@ -15,7 +15,6 @@
             type="text" 
             id="username" 
             name="username" 
-            size="50" 
             required
           />
         </div>
@@ -25,7 +24,6 @@
             type="email" 
             id="email" 
             name="email" 
-            size="50" 
             required
           />
         </div>
@@ -35,7 +33,6 @@
             type="text" 
             id="cpf" 
             name="cpf" 
-            size="11" 
             required
           />
         </div>
@@ -45,7 +42,6 @@
             type="text" 
             id="rg" 
             name="rg" 
-            size="13" 
             required
           />
         </div>
@@ -55,7 +51,6 @@
             type="text" 
             id="telefone" 
             name="telefone" 
-            size="12" 
             required
           />
         </div>
@@ -65,7 +60,6 @@
             type="text" 
             id="cep" 
             name="cep" 
-            size="8"
             required 
           />
         </div>
@@ -75,7 +69,6 @@
             type="text" 
             id="genero" 
             name="genero" 
-            size="15" 
             required 
           />
         </div>
@@ -85,7 +78,6 @@
             type="text"
             id="data_nascimento"
             name="data_nascimento"
-            size="10"
             required
           />
         </div>
@@ -95,7 +87,6 @@
             type="text"
             id="cidade_UF_nascimento"
             name="cidade_UF_nascimento"
-            size="20"
             required
           />
         </div>
@@ -105,7 +96,6 @@
             type="text" 
             id="filiacao" 
             name="filiacao"
-            size="15" 
             required
           />
         </div>
@@ -116,7 +106,6 @@
             id="password" 
             name="password"
             onkeyup="verifyPass()" 
-            size="15"
             autocomplete="off" 
             required
           />
@@ -127,7 +116,6 @@
             type="password"
             id="confirmPassword"
             name="confirmPassword"
-            size="15"
             required
           />
         </div>
@@ -148,5 +136,16 @@
         </div>
       </form>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+    <script>
+        $('#cep').mask('00000-000');
+        $('#data_nascimento').mask('00/00/0000');
+        $('#telefone').mask('(00) 0000-0000');
+        $('#cpf').mask('000.000.000-00', {reverse: true});
+        $('#rg').mask('00.000.000-0', {reverse: true});
+    </script>
   </body>
 </html>
+
+///TODO FAZER 

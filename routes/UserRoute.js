@@ -8,6 +8,7 @@ router.get("/signup", UserController.loadSignup);
 router.get("/login", UserController.loadLogin);
 router.get("/dados", UserController.loadData);
 
+
 // Posts
 router.post("/signup", UserController.createUser);
 

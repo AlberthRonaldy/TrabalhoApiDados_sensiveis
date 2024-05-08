@@ -52,11 +52,6 @@ function enviarFormulario() {
     });
 }
 
-
-function encode(value){
-    
-}   
-
 //Função para verificar a senha
 function verifyPass() {
   var senha = document.getElementsByName('password')[0].value;
@@ -109,3 +104,5 @@ function verifyPass() {
     }
   }
 }
+
+///TODO FAZER A VERIFICAÇÃO DA SENHA COM CONFIRMAÇÃO DE SENHA, O RESTO TA SAFE
