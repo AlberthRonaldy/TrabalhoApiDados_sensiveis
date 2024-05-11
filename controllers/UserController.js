@@ -57,15 +57,6 @@ module.exports = class UserController {
       filiacao,
     };
 
-    // Decodificar o base 64 do front
-    for (let key in data) {
-      if (data.hasOwnProperty(key)) {
-        console.log("1", data[key]);
-        data[key] = helper.encryptAssData(key, data[key]);
-        console.log("2", data[key]);
-      }
-    }
-
     console.log(data);
 
     // Codificar e Decodificar restrito

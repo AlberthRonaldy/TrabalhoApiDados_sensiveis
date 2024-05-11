@@ -1,4 +1,3 @@
-import { base64Encoder, base64Decoder } from "./cripto.js";
 function enviarFormulario() {
   var username = document.getElementById("username");
   var email = document.getElementById("email");
@@ -31,12 +30,6 @@ function enviarFormulario() {
   if (username.value == "" || cpf.value == "" || email.value == "") {
     alert("Por favor, preencha todos os campos!");
     return;
-  }
-
-  for (let key in data) {
-    if (data.hasOwnProperty(key)) {
-      data[key] = base64Encoder(data[key]);
-    }
   }
 
   // Enviar os dados via POST para a API usando fetch
