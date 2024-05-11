@@ -59,20 +59,21 @@ module.exports = class UserController {
 
     console.log(data);
 
-    // Codificar e Decodificar restrito
+    // Gerando minhas chaves
+    await helper.generateRSAKeys();
 
     // Confidencial apenas a Hash
 
     // Verificando se as senha sao iguais
     if (password != confirmPassword)
-      return res.status(422).json({ msg: "As senhas nao conferem!" });
+      return res.status(422).send("As senhas nao conferem!");
 
     const hashedPassword = helper.hashPassword(password);
 
     console.log(hashedPassword);
 
     if (await checkIfUserExists(cpf))
-      return res.status(422).json({ msg: "Usuario ja existe!" });
+      return res.status(422).send("Usuario ja existe!");
 
     const user = new User(
       username,
@@ -93,5 +94,13 @@ module.exports = class UserController {
     } catch (error) {
       console.log("Erro ao criar Usuario", error);
     }
+  }
+
+  static async loadPublicKey(req, res) {
+    const publicKey = await helper.loadPublicKey();
+    console.log("MINHA CHAVE PUBLICA ", publicKey);
+    console.log("TIPO DELA ", typeof publicKey);
+    if (publicKey) res.status(200).send(publicKey);
+    else res.status(500).send("Erro ao carregar chave publica");
   }
 };

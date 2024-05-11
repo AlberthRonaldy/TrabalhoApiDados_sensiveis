@@ -27,27 +27,30 @@ function enviarFormulario() {
     confirmPassword: confirmPassword.value,
   };
 
+  // Carrega chave publica
+  loadPublicKey();
+
   if (username.value == "" || cpf.value == "" || email.value == "") {
     alert("Por favor, preencha todos os campos!");
     return;
   }
 
   // Enviar os dados via POST para a API usando fetch
-  fetch("http://localhost:3000/signup", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((data) => {
-      alert("Registro efetuado com sucesso!");
-      // Limpar os campos do formulário após o registro bem-sucedido, se necessário
-      document.getElementById("registrationForm").reset();
-    })
-    .catch((error) => {
-      alert(error.message);
-    });
+  // fetch("http://localhost:3000/signup", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify(data),
+  // })
+  //   .then((data) => {
+  //     alert("Registro efetuado com sucesso!");
+  //     // Limpar os campos do formulário após o registro bem-sucedido, se necessário
+  //     document.getElementById("registrationForm").reset();
+  //   })
+  //   .catch((error) => {
+  //     alert(error.message);
+  //   });
 }
 
 //Função para verificar a senha
@@ -101,6 +104,28 @@ function verifyPass() {
       estilo(0, 1);
     }
   }
+}
+
+function loadPublicKey() {
+  console.log("AQUIIIII");
+  fetch("http://localhost:3000/loadPk")
+    .then((response) => {
+      if (!response.ok) {
+        console.log("ERRO");
+        throw new Error("Erro ao carregar chave pública");
+      }
+      console.log("Minha resposta =====> ", response);
+      return response.text(); // Extrair o texto da resposta
+    })
+    .then((publicKey) => {
+      // Aqui você pode usar a chave pública carregada
+      console.log("Chave pública carregada:", publicKey);
+      // Por exemplo, você pode armazená-la em uma variável global ou em algum local seguro
+    })
+    .catch((error) => {
+      console.error("Erro:", error);
+      alert(error.message);
+    });
 }
 
 ///TODO FAZER A VERIFICAÇÃO DA SENHA COM CONFIRMAÇÃO DE SENHA, O RESTO TA SAFE
