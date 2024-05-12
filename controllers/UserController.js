@@ -56,15 +56,19 @@ module.exports = class UserController {
     const hashedPassword = helper.hashPassword(password);
 
     // Verificando se o usuario existe
-    if (await checkIfUserExists(cpf))
+    cpf = await helper.decryptAssData(cpf);
+    const hashedCpf = helper.hashPassword(cpf);
+    if (await checkIfUserExists(hashedCpf)) {
+      console.log("Cpf ja existe");
       return res.status(422).send("Usuario ja existe!");
+    }
 
     // Criando meu Objeto Usuario
     const user = new User(
       username,
       email,
       hashedPassword,
-      cpf,
+      hashedCpf,
       rg,
       telefone,
       cep,
@@ -76,9 +80,30 @@ module.exports = class UserController {
 
     try {
       await createUser(user);
-      res.render("home");
+      res.render("login");
     } catch (error) {
       console.log("Erro ao criar Usuario", error);
+    }
+  }
+
+  static async userLogin(req, res) {
+    let { cpf, password } = req.body;
+
+    // Verificar se o usuario existe
+    password = helper.hashPassword(password);
+    cpf = helper.hashPassword(cpf);
+    let user = await checkIfUserExists(cpf);
+    if (user) {
+      // Verificar se as senhas estao corretas
+      if (password == user.password) {
+        for (let key in user) {
+          if (user.hasOwnProperty(key)) {
+            if (!["cpf", "password"].includes(key))
+              user[key] = await helper.decryptAssData(user[key]);
+          }
+        }
+        res.render("dados", { user });
+      } else res.render("login");
     }
   }
 
