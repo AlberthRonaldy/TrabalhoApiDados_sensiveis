@@ -59,6 +59,12 @@ module.exports = class UserController {
 
     console.log(data);
 
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        data[key] = helper.decryptAssData(data[key]);
+      }
+    }
+
     // Gerando minhas chaves
     await helper.generateRSAKeys();
 
@@ -68,26 +74,23 @@ module.exports = class UserController {
     if (password != confirmPassword)
       return res.status(422).send("As senhas nao conferem!");
 
-    const hashedPassword = helper.hashPassword(password);
-
-    console.log(hashedPassword);
-
     if (await checkIfUserExists(cpf))
       return res.status(422).send("Usuario ja existe!");
 
     const user = new User(
       username,
       email,
-      hashedPassword,
+      password,
       cpf,
       rg,
       telefone,
       cep,
       genero,
       data_nascimento,
-      cidade_UF_nascimento,
+      cidade_UF_nascimento, 
       filiacao
     );
+    console.log("User", user);
     try {
       await createUser(user);
       res.render("home");
@@ -98,8 +101,6 @@ module.exports = class UserController {
 
   static async loadPublicKey(req, res) {
     const publicKey = await helper.loadPublicKey();
-    console.log("MINHA CHAVE PUBLICA ", publicKey);
-    console.log("TIPO DELA ", typeof publicKey);
     if (publicKey) res.status(200).send(publicKey);
     else res.status(500).send("Erro ao carregar chave publica");
   }

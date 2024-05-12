@@ -27,30 +27,12 @@ function enviarFormulario() {
     confirmPassword: confirmPassword.value,
   };
 
-  // Carrega chave publica
-  loadPublicKey();
-
   if (username.value == "" || cpf.value == "" || email.value == "") {
     alert("Por favor, preencha todos os campos!");
     return;
   }
-
-  // Enviar os dados via POST para a API usando fetch
-  // fetch("http://localhost:3000/signup", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(data),
-  // })
-  //   .then((data) => {
-  //     alert("Registro efetuado com sucesso!");
-  //     // Limpar os campos do formulário após o registro bem-sucedido, se necessário
-  //     document.getElementById("registrationForm").reset();
-  //   })
-  //   .catch((error) => {
-  //     alert(error.message);
-  //   });
+  // Carrega chave publica
+  dataEncrypt(data);
 }
 
 //Função para verificar a senha
@@ -106,21 +88,99 @@ function verifyPass() {
   }
 }
 
-function loadPublicKey() {
-  console.log("AQUIIIII");
+// function dataEncrypt(data) {
+//   fetch("http://localhost:3000/loadPk")
+//     .then((response) => {
+//       if (!response.ok) {
+//         console.log("ERRO");
+//         throw new Error("Erro ao carregar chave pública");
+//       }
+//       return response.text(); // Extrair o texto da resposta
+//     })
+//     .then((publicKey) => {
+//       // Aqui você pode usar a chave pública carregada
+//       console.log("Chave pública carregada:", publicKey);
+//       const publicKeyObj = forge.pki.publicKeyFromPem(publicKey);
+//       // Criptografando meu dados
+//       for (let key in data) {
+//         if (data.hasOwnProperty(key)) {
+//           const encryptedData = publicKeyObj.encrypt(data[key], "RSA-OAEP", {
+//             md: forge.md.sha256.create(),
+//           });
+//           const encryptedHex = forge.util.bytesToHex(encryptedData);
+//           data[key] = encryptedHex;
+//         }
+//       }
+
+//       // Enviar os dados via POST para a API usando fetch
+//       fetch("http://localhost:3000/signup", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify(data),
+//       })
+//         .then((data) => {
+//           alert("Registro efetuado com sucesso!");
+//           // Limpar os campos do formulário após o registro bem-sucedido, se necessário
+//           document.getElementById("registrationForm").reset();
+//         })
+//         .catch((error) => {
+//           alert(error.message);
+//         });
+//     })
+//     .catch((error) => {
+//       console.error("Erro:", error);
+//       alert(error.message);
+//     });
+// }
+function dataEncrypt(data) {
   fetch("http://localhost:3000/loadPk")
     .then((response) => {
       if (!response.ok) {
         console.log("ERRO");
         throw new Error("Erro ao carregar chave pública");
       }
-      console.log("Minha resposta =====> ", response);
       return response.text(); // Extrair o texto da resposta
     })
     .then((publicKey) => {
       // Aqui você pode usar a chave pública carregada
       console.log("Chave pública carregada:", publicKey);
-      // Por exemplo, você pode armazená-la em uma variável global ou em algum local seguro
+      const publicKeyObj = forge.pki.publicKeyFromPem(publicKey);
+      // Criptografando os dados
+      for (let key in data) {
+        if (data.hasOwnProperty(key)) {
+          const encryptedData = publicKeyObj.encrypt(data[key], "RSA-OAEP", {
+            md: forge.md.sha256.create(),
+          });
+          const encryptedHex = forge.util.bytesToHex(encryptedData);
+          data[key] = encryptedHex;
+        }
+      }
+
+      // Enviar os dados via POST para a API usando fetch
+      fetch("http://localhost:3000/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Erro ao enviar dados para o servidor");
+          }
+          return response.json();
+        })
+        .then((responseData) => {
+          alert("Registro efetuado com sucesso!");
+          // Limpar os campos do formulário após o registro bem-sucedido, se necessário
+          document.getElementById("registrationForm").reset();
+        })
+        .catch((error) => {
+          console.error("Erro:", error);
+          alert(error.message);
+        });
     })
     .catch((error) => {
       console.error("Erro:", error);

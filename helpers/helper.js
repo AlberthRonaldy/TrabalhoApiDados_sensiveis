@@ -3,6 +3,7 @@ const fs = require("fs");
 const { CLIENT_RENEG_WINDOW } = require("tls");
 const util = require("util");
 const generateKeyPair = util.promisify(crypto.generateKeyPair);
+const forge = require("node-forge");
 
 module.exports = class Helper {
   static hashPassword(password) {
@@ -107,32 +108,25 @@ module.exports = class Helper {
   }
 
   // Decrypt data using private key
-  static async decryptAssData(req, res) {
-    const { texto } = req.body;
-    if (!texto) {
-      res.status(400).json({ msg: "Texto inválido." });
-      return;
-    }
+  static async decryptAssData(encryptedHex) {
+    // Carregando minha chave privada
+    const privateKeyPem = fs.readFileSync("private_key.pem", "utf8");
+    const privateKeyObj = forge.pki.privateKeyFromPem(privateKeyPem);
 
-    try {
-      const privateKey = await loadPrivateKey();
-      if (!privateKey) {
-        res.status(500).json({ msg: "Erro ao carregar a chave privada." });
-        return;
-      }
+    // Converter a representação hexadecimal de volta para bytes
+    const encryptedBytes = forge.util.hexToBytes(encryptedHex);
 
-      const decryptedData = crypto.privateDecrypt(
-        {
-          key: privateKey,
-          passphrase: "",
-        },
-        Buffer.from(texto, "base64")
-      );
-      res.status(200);
-    } catch (error) {
-      console.error("Erro ao descriptografar dados:", error);
-      res.status(500).json({ msg: "Erro ao descriptografar dados." });
-    }
+    // Descriptografar os bytes usando a chave privada
+    const decryptedBytes = privateKeyObj.decrypt(encryptedBytes, "RSA-OAEP", {
+      md: forge.md.sha256.create(),
+    });
+
+    // Converter os bytes de volta para string
+    const decryptedData = Buffer.from(decryptedBytes, "binary").toString(
+      "utf8"
+    );
+
+    return decryptedData;
   }
 
   static accessFile = (fileName) => {
