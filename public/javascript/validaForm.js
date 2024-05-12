@@ -145,7 +145,6 @@ function dataEncrypt(data) {
     })
     .then((publicKey) => {
       // Aqui você pode usar a chave pública carregada
-      console.log("Chave pública carregada:", publicKey);
       const publicKeyObj = forge.pki.publicKeyFromPem(publicKey);
       // Criptografando os dados
       for (let key in data) {

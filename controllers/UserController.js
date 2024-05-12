@@ -26,6 +26,9 @@ module.exports = class UserController {
   }
 
   static async createUser(req, res) {
+    // Gerando minhas chaves
+    await helper.generateRSAKeys();
+
     let {
       username,
       email,
@@ -41,12 +44,26 @@ module.exports = class UserController {
       filiacao,
     } = req.body;
 
-    // Criar um objeto para armazenar os dados
-    const data = {
+    // Deecriptografando a senha para aplicar a hash
+    password = await helper.decryptAssData(password);
+    confirmPassword = await helper.decryptAssData(confirmPassword);
+
+    // Verificando se as senha sao iguais
+    if (password != confirmPassword)
+      return res.status(422).send("As senhas nao conferem!");
+
+    // Passando a hash na minha senha para salvar no banco
+    const hashedPassword = helper.hashPassword(password);
+
+    // Verificando se o usuario existe
+    if (await checkIfUserExists(cpf))
+      return res.status(422).send("Usuario ja existe!");
+
+    // Criando meu Objeto Usuario
+    const user = new User(
       username,
       email,
-      password,
-      confirmPassword,
+      hashedPassword,
       cpf,
       rg,
       telefone,
@@ -54,43 +71,9 @@ module.exports = class UserController {
       genero,
       data_nascimento,
       cidade_UF_nascimento,
-      filiacao,
-    };
-
-    console.log(data);
-
-    for (let key in data) {
-      if (data.hasOwnProperty(key)) {
-        data[key] = helper.decryptAssData(data[key]);
-      }
-    }
-
-    // Gerando minhas chaves
-    await helper.generateRSAKeys();
-
-    // Confidencial apenas a Hash
-
-    // Verificando se as senha sao iguais
-    if (password != confirmPassword)
-      return res.status(422).send("As senhas nao conferem!");
-
-    if (await checkIfUserExists(cpf))
-      return res.status(422).send("Usuario ja existe!");
-
-    const user = new User(
-      username,
-      email,
-      password,
-      cpf,
-      rg,
-      telefone,
-      cep,
-      genero,
-      data_nascimento,
-      cidade_UF_nascimento, 
       filiacao
     );
-    console.log("User", user);
+
     try {
       await createUser(user);
       res.render("home");
