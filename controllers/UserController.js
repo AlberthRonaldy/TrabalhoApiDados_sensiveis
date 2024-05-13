@@ -26,9 +26,6 @@ module.exports = class UserController {
   }
 
   static async createUser(req, res) {
-    // Gerando minhas chaves
-    await helper.generateRSAKeys();
-
     let {
       username,
       email,
@@ -55,10 +52,11 @@ module.exports = class UserController {
     // Passando a hash na minha senha para salvar no banco
     const hashedPassword = helper.hashPassword(password);
 
-    // Verificando se o usuario existe
+    // Tratando meu cpf
     cpf = await helper.decryptAssData(cpf);
-    const hashedCpf = helper.hashPassword(cpf);
-    if (await checkIfUserExists(hashedCpf)) {
+    cpf = helper.cpfClear(cpf);
+    // Verificando se o usuario existe
+    if (await checkIfUserExists(cpf)) {
       console.log("Cpf ja existe");
       return res.status(422).send("Usuario ja existe!");
     }
@@ -68,7 +66,7 @@ module.exports = class UserController {
       username,
       email,
       hashedPassword,
-      hashedCpf,
+      cpf,
       rg,
       telefone,
       cep,
@@ -77,6 +75,8 @@ module.exports = class UserController {
       cidade_UF_nascimento,
       filiacao
     );
+
+    console.log(user);
 
     try {
       await createUser(user);
@@ -90,12 +90,11 @@ module.exports = class UserController {
     let { cpf, password } = req.body;
 
     // Verificar se o usuario existe
-    password = helper.hashPassword(password);
-    cpf = helper.hashPassword(cpf);
+    cpf = helper.cpfClear(cpf);
     let user = await checkIfUserExists(cpf);
     if (user) {
       // Verificar se as senhas estao corretas
-      if (password == user.password) {
+      if (helper.authenticatePassword(password, user.password)) {
         for (let key in user) {
           if (user.hasOwnProperty(key)) {
             if (!["cpf", "password"].includes(key))
@@ -104,7 +103,7 @@ module.exports = class UserController {
         }
         res.render("dados", { user });
       } else res.render("login");
-    }
+    } else res.render("login");
   }
 
   static async loadPublicKey(req, res) {

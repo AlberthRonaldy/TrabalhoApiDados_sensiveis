@@ -34,7 +34,6 @@ module.exports = class Helper {
 
       // Se as chaves já existirem, não é necessário gerá-las novamente
       if (publicKeyExists && privateKeyExists) {
-        console.log("As chaves já existem.");
         return;
       }
 
@@ -69,41 +68,7 @@ module.exports = class Helper {
       const publicKey = await fs.promises.readFile("public_key.pem", "utf8");
       return publicKey;
     } catch (error) {
-      console.error("Erro ao carregar a chave pública:", error);
-      return null;
-    }
-  }
-
-  // Função para carregar a chave privada
-  static async loadPrivateKey() {
-    try {
-      const privateKey = await fs.readFile("private_key.pem", "utf8");
-      return privateKey;
-    } catch (error) {
-      console.error("Erro ao carregar a chave privada:", error);
-      return null;
-    }
-  }
-
-  // Encrypt data using public key
-  static async encryptAssData(req, res) {
-    const { texto } = req.body;
-    if (!texto) {
-      res.status(400).json({ msg: "Texto inválido." });
-      return;
-    }
-
-    try {
-      const publicKey = await this.loadPublicKey();
-      if (!publicKey) {
-        res.status(500).json({ msg: "Erro ao carregar a chave pública." });
-        return;
-      }
-
-      const encryptedData = crypto.publicEncrypt(publicKey, Buffer.from(texto));
-    } catch (error) {
-      console.error("Erro ao criptografar dados:", error);
-      res.status(500).json({ msg: "Erro ao criptografar dados." });
+      console.log(error);
     }
   }
 
@@ -129,15 +94,11 @@ module.exports = class Helper {
     return decryptedData;
   }
 
-  static accessFile = (fileName) => {
-    return new Promise((resolve, reject) => {
-      fs.access(fileName, (err) => {
-        if (err) {
-          reject(err); // Se houver um erro, rejeitar a promessa
-        } else {
-          resolve(true); // Se não houver erro, resolver com true (indicando que o arquivo existe)
-        }
-      });
-    });
-  };
+  static cpfClear(cpf) {
+    cpf = cpf.replace(
+      /(\d{3})[.\s]?(\d{3})[.\s]?(\d{3})[-\s]?(\d{2})/g,
+      "$1$2$3$4"
+    );
+    return cpf;
+  }
 };

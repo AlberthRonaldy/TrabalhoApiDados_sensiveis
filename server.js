@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require("./db/database.js");
 const exphbs = require("express-handlebars");
+const helper = require("./helpers/helper.js");
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.set("view engine", "handlebars");
 
 app.use("/", userRoute);
 
-app.listen(3000, () => {
+app.listen(3000, async () => {
+  await helper.generateRSAKeys();
   console.log("Server and DataBase running");
 });
