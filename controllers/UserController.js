@@ -76,8 +76,6 @@ module.exports = class UserController {
       filiacao
     );
 
-    console.log(user);
-
     try {
       await createUser(user);
       res.render("login");
