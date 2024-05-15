@@ -1,44 +1,47 @@
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dados Cliente</title>
-    <link rel="stylesheet" href="/css/dados.css" />
-  </head>
-  <body>
-    <main class="container_signup">
-      <section>
-        <h1>Dados do Cliente</h1>
-        <table>
-          <thead>
-            <tr>
-              <th rowspan="1">Nome</th>
-              <th rowspan="1">Email</th>
-              <th rowspan="1">RG</th>
-              <th rowspan="1">Telefone</th>
-              <th rowspan="1">CEP</th>
-              <th rowspan="1">Gênero</th>
-              <th rowspan="1">Data de nascimento</th>
-              <th rowspan="1">Cidade/UF</th>
-              <th rowspan="1">Filiação</th>
-
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{user.username}}</td>
-              <td>{{user.email}}</td>
-              <td>{{user.rg}}</td>
-              <td>{{user.telefone}}</td>
-              <td>{{user.cep}}</td>
-              <td>{{user.genero}}</td>
-              <td>{{user.data_nascimento}}</td>
-              <td>{{user.cidade_UF_nascimento}}</td>
-              <td>{{user.filiacao}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-    </main>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Data</title>
+  <link rel="stylesheet" href="/css/dados.css" />
+</head>
+<body>
+  <main class="container_dado">
+    <section>
+      <h1>Dados do Cliente</h1>
+      <hr>
+      <table id="table1">
+        <thead>
+          <tr>
+            <th rowspan="1">Nome</th>
+            <th rowspan="1">Email</th>
+            <th rowspan="1">RG</th>
+            <th rowspan="1">Telefone</th>
+            <th rowspan="1">CEP</th>
+            <th rowspan="1">Gênero</th>
+            <th rowspan="1">Data de nascimento</th>
+            <th rowspan="1">Cidade/UF</th>
+            <th rowspan="1">Filiação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{user.username}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.rg}}</td>
+            <td>{{user.telefone}}</td>
+            <td>{{user.cep}}</td>
+            <td>{{user.genero}}</td>
+            <td>{{user.data_nascimento}}</td>
+            <td>{{user.cidade_UF_nascimento}}</td>
+            <td>{{user.filiacao}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <a href="/" class="btn btn-primary">Voltar</a>
+    </section>
+  </main>
+  <script src="/javascript/formataDados.js"></script>
+</script>
+</body>
 </html>

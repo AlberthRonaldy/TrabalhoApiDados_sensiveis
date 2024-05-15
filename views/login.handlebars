@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Login</title>
-    <link rel="stylesheet" href="login.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Login</title>
+  <link rel="stylesheet" href="login.css">
 </head>
 <body>
-   <div class="container_dados">
+  <div class="container_dados">
     <h1>Faça o login</h1>
+    <hr>
     <form action="login" method="POST">
-        <div class="input-group">
-          <label for="cpf">CPF:</label>
-          <input type="text" id="cpf" name="cpf" required />
-        </div>
-        <div class="input-group">
-          <label for="password">Senha:</label>
-          <input type="password" id="password" name="password" required />
-        </div>
-        <button type="submit" class="btn btn-primary">Login</button>
+      <div class="input-group">
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" required />
+      </div>
+      <div class="input-group">
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" required />
+      </div>
+      <button type="submit" class="btn btn-primary">Login</button>
     </form>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+  <script>
+    $('#cpf').mask('000.000.000-00',
+    {reverse: true}); 
+  </script>
 </body>
 </html>

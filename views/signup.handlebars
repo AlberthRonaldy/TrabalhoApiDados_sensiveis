@@ -1,118 +1,115 @@
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cadastro</title>
-    <link rel="stylesheet" href="/css/signup.css" />
-  </head>
-  <body>
-    <div class="container_signup">
-      <h1>Formulário de Cadastro</h1>
-      <hr>
-      <form id="registrationForm">
-        <div class="input-group">
-          <label for="username">Nome de usuário:</label>
-          <input type="text" id="username" placeholder="Nome" name="username" required />
-        </div>
-        <div class="input-group">
-          <label for="email">Endereço de email:</label>
-          <input type="email" id="email" placeholder="seuemail@email.com" name="email" required/>
-        </div>
-        <div class="input-group">
-          <label for="cpf">CPF:</label>
-          <input type="text" id="cpf" placeholder="CPF" name="cpf" required />
-        </div>
-        <div class="input-group">
-          <label for="rg">RG:</label>
-          <input type="text" id="rg" placeholder="RG" name="rg" required />
-        </div>
-        <div class="input-group">
-          <label for="telefone">Telefone:</label>
-          <input type="text" id="telefone" placeholder="Telefone" name="telefone" required />
-        </div>
-        <div class="input-group">
-          <label for="cep">CEP:</label>
-          <input type="text" id="cep" placeholder="CEP" name="cep" required />
-        </div>
-        <div class="input-group">
-          <label for="genero">Gênero:</label>
-          <input type="text" id="genero" placeholder="Gênero" name="genero" required />
-        </div>
-        <div class="input-group">
-          <label for="data_nascimento">Data de nascimento:</label>
-          <input
-            type="text"
-            id="data_nascimento"
-            name="data_nascimento"
-            placeholder="Data de nascimento"
-            required
-          />
-        </div>
-        <div class="input-group">
-          <label for="cidade_UF_nascimento">Cidade/Uf de nascimento:</label>
-          <input
-            type="text"
-            id="cidade_UF_nascimento"
-            name="cidade_UF_nascimento"
-            placeholder="Cidade/UF"
-            required
-          />
-        </div>
-        <div class="input-group">
-          <label for="filiacao">Filiação:</label>
-          <input type="text" id="filiacao" placeholder="Filiação" name="filiacao" required />
-        </div>
-        <div class="input-group">
-          <label for="password">Senha:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Senha"
-            onkeyup="verifyPass()"
-            autocomplete="off"
-            required
-          />
-        </div>
-        <div class="input-group">
-          <label for="confirmPassword">Confirmar senha:</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            placeholder="Confirmar Senha"
-            name="confirmPassword"
-            required
-          />
-        </div>
-        <div class="info">
-          <div class="feed">Número de caracteres: Mínimo 8</div>
-          <div class="feed">Letras Maiúsculas: ABC</div>
-          <div class="feed">Números: Entre 0 a 9</div>
-          <div class="feed">Caracteres Especiais: @$%&!</div>
-        </div>
-        <div>
-          <button
-            id="botao"
-            value="Entrar"
-            type="submit"
-            onclick="enviarFormulario()"
-            readonly
-          >Cadastrar</button>
-        </div>
-      </form>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/forge/0.10.0/forge.min.js"
-    ></script>
-    <script src="/javascript/validaForm.js"></script>
-    <script>
-      $('#cep').mask('00000-000'); $('#data_nascimento').mask('00/00/0000');
-      $('#telefone').mask('(00) 00000-0000'); $('#cpf').mask('000.000.000-00',
-      {reverse: true}); $('#rg').mask('00.000.000-0', {reverse: true});
-    </script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Signup</title>
+  <link rel="stylesheet" href="/css/signup.css" />
+</head>
+<body>
+  <div class="container_signup">
+    <h1>Formulário de Cadastro</h1>
+    <hr>
+    <form id="registrationForm">
+      <div class="input-group">
+        <label for="username">Nome de usuário:</label>
+        <input type="text" id="username" placeholder="Nome" name="username" required />
+      </div>
+      <div class="input-group">
+        <label for="email">Endereço de email:</label>
+        <input type="email" id="email" placeholder="seuemail@email.com" name="email" required/>
+      </div>
+      <div class="input-group">
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" placeholder="000.000.000-00" name="cpf" required />
+      </div>
+      <div class="input-group">
+        <label for="rg">RG:</label>
+        <input type="text" id="rg" placeholder="00.000.000-0" name="rg" required />
+      </div>
+      <div class="input-group">
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" placeholder="(00) 00000-0000" name="telefone" required />
+      </div>
+      <div class="input-group">
+        <label for="cep">CEP:</label>
+        <input type="text" id="cep" placeholder="00000-000" name="cep" required />
+      </div>
+      <div class="input-group">
+        <label for="genero">Gênero:</label>
+        <input type="text" id="genero" placeholder="Masculino" name="genero" required />
+      </div>
+      <div class="input-group">
+        <label for="data_nascimento">Data de nascimento:</label>
+        <input
+          type="text"
+          id="data_nascimento"
+          name="data_nascimento"
+          placeholder="00/00/0000"
+          required
+        />
+      </div>
+      <div class="input-group">
+        <label for="cidade_UF_nascimento">Cidade/Uf de nascimento:</label>
+        <input
+          type="text"
+          id="cidade_UF_nascimento"
+          name="cidade_UF_nascimento"
+          placeholder="Cidade/UF"
+          required
+        />
+      </div>
+      <div class="input-group">
+        <label for="filiacao">Filiação:</label>
+        <input type="text" id="filiacao" placeholder="Filiação" name="filiacao" required />
+      </div>
+      <div class="input-group">
+        <label for="password">Senha:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="******"
+          onkeyup="verifyPass()"
+          autocomplete="off"
+          required
+        />
+      </div>
+      <div class="input-group">
+        <label for="confirmPassword">Confirmar senha:</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          placeholder="******"
+          name="confirmPassword"
+          required
+        />
+      </div>
+      <div class="info">
+        <div class="feed">Número de caracteres: Mínimo 8</div>
+        <div class="feed">Letras Maiúsculas: ABC</div>
+        <div class="feed">Números: Entre 0 a 9</div>
+        <div class="feed">Caracteres Especiais: @$%&!</div>
+      </div>
+      <div>
+        <button
+          id="botao"
+          value="Entrar"
+          type="submit"
+          onclick="enviarFormulario()"
+          readonly
+        >Cadastrar</button>
+      </div>
+      <a href="/" class="btn btn-primary">Voltar</a>
+    </form>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/forge/0.10.0/forge.min.js"></script>
+  <script src="/javascript/validaForm.js"></script>
+  <script>
+    $('#cep').mask('00000-000'); $('#data_nascimento').mask('00/00/0000');
+    $('#telefone').mask('(00) 00000-0000'); $('#cpf').mask('000.000.000-00',
+    {reverse: true}); $('#rg').mask('00.000.000-0', {reverse: true});
+  </script>
+</body>
 </html>
